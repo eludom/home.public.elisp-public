@@ -1,0 +1,90 @@
+* Description
+  This is a function to list current keybindings and do an occur match.
+
+  Assuming
+
+     =(global-set-key (kbd "C-h b") 'gmjOccurBindings)=
+
+  Run with C-u C-h C-b to search bindings.
+
+  Why? Usually when I list describe-bindings (C-h b) the next thing I
+  do is switch to the buffer and search for the command I'm looking
+  for.  appropos-command (C-h a) comes close, but I find the output
+  too verbose.  Things get lost.
+
+* Sample Output
+
+  For C-u C-b "describe"
+
+  #+begin_example
+  48 matches for "describe" in buffer: *Help*
+    730:?		describe-mode
+    732:h		describe-mode
+    909:C-h C-c		describe-copying
+    916:C-h C-o		describe-distribution
+    919:C-h C-w		describe-no-warranty
+    920:C-h C-\		describe-input-method
+    924:C-h C		describe-coding-system
+    926:C-h I		describe-input-method
+    928:C-h L		describe-language-environment
+    929:C-h P		describe-package
+    933:C-h c		describe-key-briefly
+    936:C-h f		describe-function
+    940:C-h k		describe-key
+    942:C-h m		describe-mode
+    944:C-h o		describe-symbol
+    948:C-h s		describe-syntax
+    950:C-h v		describe-variable
+    ...
+  #+end_example
+
+* Keybinding
+  #+begin_src emacs-lisp
+  (global-set-key (kbd "C-h b") 'gmjOccurBindings)
+  #+end_src
+
+  #+RESULTS:
+  : gmjOccurBindings
+
+
+* History
+  - George Jones, 2016-08-28 - initial
+  - George Jones, 2022-11-15 - cleanup
+
+* Code
+
+    #+BEGIN_SRC emacs-lisp :exports code
+      (defun gmjOccurBindings (arg)
+        "This is a function to list current keybindings and do an occur match
+
+
+      With no arguments, it is a pass-through to describe-bindings
+
+      When preceded with 1 `universal-argument' (^u^u),
+      prompt for OCCUR string and do an occur search for that string.
+      "
+        (interactive "p")
+        (progn
+
+          ; if arg is 1, just call describe-bindings
+          (if (= arg 1)
+            (describe-bindings)
+
+            ; if arg = 4, get string and do occur
+            (if (= arg 4)
+              (progn
+                (setq occurString (read-string (format "search bindnigs for: ") nil nil ""))
+                (describe-bindings)
+                (switch-to-buffer-other-window "*Help*")
+                (if (not (equal occurString ""))
+                  (occur occurString))
+              )
+            )
+          )
+        )
+      )
+
+    #+END_SRC
+
+    #+RESULTS:
+    : gmjOccurBindings

@@ -1,0 +1,10 @@
+#+BEGIN_SRC emacs-lisp :exports code
+(defun gmj-backward-whitespace ()
+  "Move point backward over whitespace, including newlines."
+  (interactive)
+  (skip-chars-backward " \t\n"))
+
+#+END_SRC
+
+#+RESULTS:
+: gmj-backward-whitespace

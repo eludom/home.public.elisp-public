@@ -1,0 +1,9 @@
+#+TITLE: George Jones's elisp files
+#+DATE: <2016-02-23 06:11:53 Tuesday>
+
+This directory contains various small elisp things I've written or borrowed.
+
+#+BEGIN_SRC emacs-lisp :exports both
+; This is here to keep org-bable-load-file from complaining about no .el file existing
+#+END_SRC
+
