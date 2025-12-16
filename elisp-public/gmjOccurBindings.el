@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (global-set-key (kbd "C-h b") 'gmjOccurBindings)
 
 (defun gmjOccurBindings (arg)

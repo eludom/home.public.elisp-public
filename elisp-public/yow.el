@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; yow.el --- quote random zippyisms
 
 ;; Copyright (C) 1993-1995, 2000-2015 Free Software Foundation, Inc.

@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defun gmj-backward-whitespace ()
   "Move point backward over whitespace, including newlines."
   (interactive)

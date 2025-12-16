@@ -1,4 +1,4 @@
-; May need to remap
+; May need to remap  -*- lexical-binding: t; -*-
 ;
 
   ; Getting this error as of Emacs 25

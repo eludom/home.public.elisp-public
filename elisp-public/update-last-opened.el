@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defun my/update-last-saved ()
   "Insert or update a #+last_saved: timestamp at top of the file."
   (when (and buffer-file-name
