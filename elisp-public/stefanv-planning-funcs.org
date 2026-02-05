@@ -1,31 +1,35 @@
-#+last_saved: 2026-02-04 11:29
+#+last_saved: 2026-02-05 08:54
 * Description
 Time-block planning functions borrowed from:
 https://mentat.za.net/blog/2026/01/27/org-mode-time-blocks/?utm_source=atom_feed
 
 ** Capture Template
 #+begin_src emacs-lisp
-  (with-eval-after-load 'org-capture
-      (add-to-list 'org-capture-templates
-                   '("d" "Day Planner" entry (file+olp+datetree "~/org/2026.org")
-  		   "** Time Plan for %u
+    (with-eval-after-load 'org-capture
+        (add-to-list 'org-capture-templates
+                     '("d" "Day Planner" entry (file+olp+datetree "~/org/2026.org")
+    		   "** Time Plan for %u
+    
+- [ ] Scan email [[notmuch-search:tag:inbox AND NOT tag:spam AND date:2d..][Inbox (not spam, last 2 days)]] 
+- [ ] Review Org Agenda for old tasks (max 10 mins)
 
-      - [ ] Scan [[notmuch-search:tag:unread][Notmuch search: tag:unread]] for new tasks (max 10 mins)
-      - [ ] Review Org Agenda for old tasks (max 10 mins)
-
-      ,*** Plan
-      ,**** 
-      ,**** Lunch + walk <%<%Y-%m-%d %a 13:00-13:45>>
-      ,**** 
-      ,**** Wrap up and review <%<%Y-%m-%d %a 16:45-17:00>>
-
-      ,*** Notes
-      ,*** End of day review
-          - What went well ::
-          - What could improve :: 
-          - Priority for tomorrow :: 
-      ")))
+,*** Plan
+,**** 
+,**** Lunch + walk <%<%Y-%m-%d %a 13:00-13:45>>
+,**** 
+,**** Wrap up and review <%<%Y-%m-%d %a 16:45-17:00>>
+,*** Notes
+,*** End of day review
+- What went well ::
+- What could improve :: 
+- Priority for tomorrow :: 
+")))
   #+end_src 
+
+  #+RESULTS:
+  | d | Day Planner | entry | (file+olp+datetree ~/org/2026.org) | ** Time Plan for %u |
+
+
 
 ** Functions and bindings
 #+BEGIN_SRC emacs-lisp :exports code
