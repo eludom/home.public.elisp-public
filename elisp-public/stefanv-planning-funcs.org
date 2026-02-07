@@ -1,34 +1,42 @@
-#+last_saved: 2026-02-05 08:54
+#+last_saved: 2026-02-07 05:29
 * Description
 Time-block planning functions borrowed from:
-https://mentat.za.net/blog/2026/01/27/org-mode-time-blocks/?utm_source=atom_feed
 
+  https://mentat.za.net/blog/2026/01/27/org-mode-time-blocks/?utm_source=atom_feed
+
+  This is something you /will/ want to customize.   What is your basline daily routine?
+  When do things happen?  How (do?) you check your email?  Do you do an end of day wrap/review?
+   
 ** Capture Template
-#+begin_src emacs-lisp
-    (with-eval-after-load 'org-capture
-        (add-to-list 'org-capture-templates
-                     '("d" "Day Planner" entry (file+olp+datetree "~/org/2026.org")
-    		   "** Time Plan for %u
-    
-- [ ] Scan email [[notmuch-search:tag:inbox AND NOT tag:spam AND date:2d..][Inbox (not spam, last 2 days)]] 
-- [ ] Review Org Agenda for old tasks (max 10 mins)
 
-,*** Plan
-,**** 
-,**** Lunch + walk <%<%Y-%m-%d %a 13:00-13:45>>
-,**** 
-,**** Wrap up and review <%<%Y-%m-%d %a 16:45-17:00>>
-,*** Notes
-,*** End of day review
+The particular plan below is very specific to MY workflow/day.
+Your WILL vary.  Change this.
+
+#+begin_src emacs-lisp :exports code
+      (with-eval-after-load 'org-capture
+          (add-to-list 'org-capture-templates
+                       '("d" "Day Planner" entry (file+olp+datetree "~/org/2026.org")
+      		   "** Time Plan for %u
+,*** George Offline - Cogita (Think) 
+,**** TODO Journal + Plan (paper)
+,**** TODO Reading Offline (paper)
+,**** TODO Plan + Schedule (emacs)
+,*** George Online  - Fac (Do )
+,**** TODO Project 1 
+,**** TODO Project 2 
+,**** TODO Lunch + walk + audio books/blogs <2026-02-07 Sat 11:00-11:45>
+,**** TODO Reading Online (Blogs, RSS, etc.)
+,*** George Online  - Dic (Speak)
+,**** TODO Writing Online (Blog, etc.)
+,**** TODO Administrative Tasks  <2026-02-07 Sat 15:30-16:30>
+,** Notes
+,** TODO End of day review  <2026-02-07 Sat 16:45-17:00>      :observe:
 - What went well ::
 - What could improve :: 
 - Priority for tomorrow :: 
-")))
+
+  ")))
   #+end_src 
-
-  #+RESULTS:
-  | d | Day Planner | entry | (file+olp+datetree ~/org/2026.org) | ** Time Plan for %u |
-
 
 
 ** Functions and bindings
