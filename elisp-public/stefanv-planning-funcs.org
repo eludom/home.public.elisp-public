@@ -1,4 +1,4 @@
-#+last_saved: 2026-02-07 05:29
+#+last_saved: 2026-02-07 05:48
 * Description
 Time-block planning functions borrowed from:
 
@@ -21,6 +21,8 @@ Your WILL vary.  Change this.
 ,**** TODO Journal + Plan (paper)
 ,**** TODO Reading Offline (paper)
 ,**** TODO Plan + Schedule (emacs)
+- [ ] Scan email [[notmuch-search:tag:inbox AND NOT tag:spam AND date:2d..][Inbox (not spam, last 2 days)]] 
+- [ ] Review Org Agenda for old tasks (max 10 mins)
 ,*** George Online  - Fac (Do )
 ,**** TODO Project 1 
 ,**** TODO Project 2 
