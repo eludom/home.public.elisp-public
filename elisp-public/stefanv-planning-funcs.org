@@ -1,4 +1,4 @@
-#+last_saved: 2026-02-07 05:48
+#+last_saved: 2026-02-08 08:05
 * Description
 Time-block planning functions borrowed from:
 
@@ -12,6 +12,26 @@ Time-block planning functions borrowed from:
 The particular plan below is very specific to MY workflow/day.
 Your WILL vary.  Change this.
 
+Guiding principals for my planning: Things go in this order
+
+- Thinking/Planning (cogita) early
+- Doing (fac) next
+- Speaking (dic) last
+- Eval end of day
+
+Another organizing principal is that the more reactive something is,
+the later in the day it gets done.   Save the brain (best early)
+for things that need it.  Paying bills does not take deep thought.
+
+I also think about things in terms of the OODA loop:
+
+  - Look at state of things (Observe)
+  - Focus on something (Orient)
+  - Decide what to do (Decide)
+  - Decide (Act)
+
+Though that's not reflected in this template.
+
 #+begin_src emacs-lisp :exports code
       (with-eval-after-load 'org-capture
           (add-to-list 'org-capture-templates
@@ -21,18 +41,19 @@ Your WILL vary.  Change this.
 ,**** TODO Journal + Plan (paper)
 ,**** TODO Reading Offline (paper)
 ,**** TODO Plan + Schedule (emacs)
+- [ ] Finish yesterday's review if not done
 - [ ] Scan email [[notmuch-search:tag:inbox AND NOT tag:spam AND date:2d..][Inbox (not spam, last 2 days)]] 
 - [ ] Review Org Agenda for old tasks (max 10 mins)
 ,*** George Online  - Fac (Do )
 ,**** TODO Project 1 
 ,**** TODO Project 2 
-,**** TODO Lunch + walk + audio books/blogs <2026-02-07 Sat 11:00-11:45>
+,**** TODO Lunch + walk + audio books/blogs <%<%Y-%m-%d %a 11:00-11:45>>
 ,**** TODO Reading Online (Blogs, RSS, etc.)
 ,*** George Online  - Dic (Speak)
 ,**** TODO Writing Online (Blog, etc.)
-,**** TODO Administrative Tasks  <2026-02-07 Sat 15:30-16:30>
+,**** TODO Administrative Tasks  <%<%Y-%m-%d %a 15:30-16:30>>
 ,** Notes
-,** TODO End of day review  <2026-02-07 Sat 16:45-17:00>      :observe:
+,** TODO End of day review  <%<%Y-%m-%d %a 16:45-17:00>>      :observe:
 - What went well ::
 - What could improve :: 
 - Priority for tomorrow :: 
