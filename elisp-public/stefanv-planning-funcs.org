@@ -1,4 +1,4 @@
-#+last_saved: 2026-02-08 08:05
+#+last_saved: 2026-02-09 07:07
 * Description
 Time-block planning functions borrowed from:
 
@@ -41,13 +41,16 @@ Though that's not reflected in this template.
 ,**** TODO Journal + Plan (paper)
 ,**** TODO Reading Offline (paper)
 ,**** TODO Plan + Schedule (emacs)
+- [ ] Outline todays schedule/priorities (from paper journal, top of head)
 - [ ] Finish yesterday's review if not done
+- [ ] Check Online Calendar
 - [ ] Scan email [[notmuch-search:tag:inbox AND NOT tag:spam AND date:2d..][Inbox (not spam, last 2 days)]] 
 - [ ] Review Org Agenda for old tasks (max 10 mins)
 ,*** George Online  - Fac (Do )
 ,**** TODO Project 1 
 ,**** TODO Project 2 
-,**** TODO Lunch + walk + audio books/blogs <%<%Y-%m-%d %a 11:00-11:45>>
+,**** TODO Lunch + walk + audio books/blogs <%<%Y-%m-%d %a 11:00-12:30>>
+     [[file:~/stow/home.private.org/Org/agenda-files/medical.org::*Habit - Walking - 5000 steps/day][Habit - Walking - 5000 steps/day]]
 ,**** TODO Reading Online (Blogs, RSS, etc.)
 ,*** George Online  - Dic (Speak)
 ,**** TODO Writing Online (Blog, etc.)
