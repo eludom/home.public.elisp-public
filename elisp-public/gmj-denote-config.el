@@ -114,7 +114,7 @@
 
   (defvar gmj/denote-directories
     '(("main" . "~/notes/")
-      ("money" . "~/money/taxes/2025")
+      ("money" . "~/money/")
       ("geneaology" . "~/private/family/geneaology/")))
 
   (defun gmj/denote-switch-directory ()
