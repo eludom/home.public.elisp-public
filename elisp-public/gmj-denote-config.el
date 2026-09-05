@@ -4,7 +4,7 @@
 ;; From https://protesilaos.com/emacs/denote#h:f3bdac2c-4704-4a51-948c-a789a2589790
 
 ;; Remember to check the doc strings of those variables.
-;; (setq denote-directory (expand-file-name "~/Documents/notes/"))
+;; (setq denote-directory (expand-file-name "~/notes/"))
 (setq denote-save-buffers nil)
 ;; (setq denote-known-keywords '("emacs" "philosophy" "politics" "economics"))
 ;; (setq denote-known-keywords '("finances" "medical" "retirement" "planning" "house" "hacking" "life" "blogging" "patc" "family" ))
