@@ -33,35 +33,35 @@ I also think about things in terms of the OODA loop:
 Though that's not reflected in this template.
 
 #+begin_src emacs-lisp :exports code
-      (with-eval-after-load 'org-capture
-          (add-to-list 'org-capture-templates
-                       '("d" "Day Planner" entry (file+olp+datetree "~/org/2026.org")
-      		   "** Time Plan for %u
-,*** George Offline - Cogita (Think) 
-,**** TODO Journal + Plan (paper)
-,**** TODO Reading Offline (paper)
-,**** TODO Plan + Schedule (emacs)
-- [ ] Outline todays schedule/priorities (from paper journal, top of head)
-- [ ] Finish yesterday's review if not done
-- [ ] Check Online Calendar
-- [ ] Scan email [[notmuch-search:tag:inbox AND NOT tag:spam AND date:2d..][Inbox (not spam, last 2 days)]] 
-- [ ] Review Org Agenda for old tasks (max 10 mins)
-,*** George Online  - Fac (Do )
-,**** TODO Project 1 
-,**** TODO Project 2 
-,**** TODO Lunch + walk + audio books/blogs <%<%Y-%m-%d %a 11:00-12:30>>
-     [[file:~/stow/home.private.org/Org/agenda-files/medical.org::*Habit - Walking - 5000 steps/day][Habit - Walking - 5000 steps/day]]
-,**** TODO Reading Online (Blogs, RSS, etc.)
-,*** George Online  - Dic (Speak)
-,**** TODO Writing Online (Blog, etc.)
-,**** TODO Administrative Tasks  <%<%Y-%m-%d %a 15:30-16:30>>
-,** Notes
-,** TODO End of day review  <%<%Y-%m-%d %a 16:45-17:00>>      :observe:
-- What went well ::
-- What could improve :: 
-- Priority for tomorrow :: 
+        (with-eval-after-load 'org-capture
+            (add-to-list 'org-capture-templates
+                         '("d" "Day Planner" entry (file+olp+datetree "~/org/2026.org")
+        		   "** Time Plan for %u
+  ,*** George Offline - Cogita (Think) 
+  ,**** TODO [[file:~/stow/home.private.org/Org/agenda-files/life.org::*Habit - Daily Journaling (paper)][Habit - Daily Journaling (paper)]]  
+  ,**** TODO [[file:~/stow/home.private.org/Org/agenda-files/life.org::*Habit - Reading (paper)][Habit - Reading (paper)]]
+  ,**** TODO Plan + Schedule (emacs)
+  - [ ] Outline todays schedule/priorities (from paper journal, top of head)
+  - [ ] Finish yesterday's review if not done
+  - [ ] Check Online Calendar
+  - [ ] Scan email [[notmuch-search:tag:inbox AND NOT tag:spam AND date:2d..][Inbox (not spam, last 2 days)]] 
+  - [ ] Review Org Agenda for old tasks (max 10 mins)
+  ,*** George Online  - Fac (Do )
+  ,**** TODO Project 1 
+  ,**** TODO Project 2 
+  ,**** TODO Lunch + [[file:~/stow/home.private.org/Org/agenda-files/medical.org::*Habit - Walking - 5000 steps/day][Habit - Walking - 5000 steps/day]] + audio books/blogs <%<%Y-%m-%d %a 11:00-12:30>>
+       
+  ,**** TODO Reading Online (Blogs, RSS, etc.)
+  ,*** George Online  - Dic (Speak)
+  ,**** TODO Writing Online (Blog, etc.)
+  ,**** TODO Administrative Tasks  <%<%Y-%m-%d %a 15:30-16:30>>
+  ,** Notes
+  ,** TODO End of day review  <%<%Y-%m-%d %a 16:45-17:00>>      :observe:
+  - What went well ::
+  - What could improve :: 
+  - Priority for tomorrow :: 
 
-  ")))
+    ")))
   #+end_src 
 
 
