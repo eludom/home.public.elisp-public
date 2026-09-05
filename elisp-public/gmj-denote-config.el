@@ -95,6 +95,65 @@
                  :kill-buffer t
                  :jump-to-captured t)))
 
+;;
+;; Define my denote AI query template
+;; 
+
+(defun my/ai-query-capture-file ()
+  "Return a fresh Denote-style file name for an AI query note."
+  (let* ((id (format-time-string "%Y%m%dT%H%M%S"))
+         (title (read-string "Title: "))
+         (slug (replace-regexp-in-string
+                "[^a-z0-9]+" "-" (downcase title))))
+    (setq my/ai-query--title title
+          my/ai-query--id id)
+    (expand-file-name
+     (format "%s--%s__chat_planning_tech.org" id (string-trim slug "-" "-"))
+     (or (bound-and-true-p denote-directory) org-directory))))
+
+(defvar my/ai-query--title nil)
+(defvar my/ai-query--id nil)
+
+(when (assoc "A" org-capture-templates)
+  (message "Overriding existing capture template \"A\""))
+(setq org-capture-templates
+      (assoc-delete-all "A" org-capture-templates))
+(add-to-list 'org-capture-templates
+ '("A" "AI query (new Denote-style file)" plain
+   (file my/ai-query-capture-file)
+   "#+title:      %(identity my/ai-query--title)
+#+date:       %U
+#+filetags:   :chat:planning:tech:
+#+identifier: %(identity my/ai-query--id)
+
+This is a chat session with %(format \"%s\" (or (bound-and-true-p gptel-model) \"unset\")).
+ 
+* Question
+%?
+ 
+** answer
+
+* Follow-up question
+
+** answer
+"
+   :unnarrowed t
+   :jump-to-captured t))
+					;
+
+;;
+;; Add my new template (or replace existing)
+;;
+
+;;
+;; Define an system prompt to be used with denote/AI queries
+;;
+;; TODO
+;;  - after first question, suggest a new short, relevant #+tile: if not already relevant
+;;  - Always use org mode, never markdown
+;;  - Prompts below "* question", answers under "** answer" below
+;;  - once answer is given, insert next "* question" and position cursor there.
+
 ;; Also check the commands `denote-link-after-creating',
 ;; `denote-link-or-create'.  You may want to bind them to keys as well.
 
