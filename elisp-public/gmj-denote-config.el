@@ -58,6 +58,8 @@
 (let ((map global-map))
   (define-key map (kbd "C-c n n") #'denote)
   (define-key map (kbd "C-c n c") #'denote-region) ; "contents" mnemonic
+  (define-key map (kbd "C-c n e") #'denote-dired)
+  (define-key map (kbd "C-c n g") #'denote-grep)
   (define-key map (kbd "C-c n N") #'denote-type)
   (define-key map (kbd "C-c n d") #'denote-date)
   (define-key map (kbd "C-c n z") #'denote-signature) ; "zettelkasten" mnemonic
