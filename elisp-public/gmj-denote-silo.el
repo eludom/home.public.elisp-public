@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+;;,
 ;; This is my "poor mans denote silo".
 ;;
 ;; I found myself with a couple different "silos" of data I wanted
@@ -43,6 +45,8 @@ Saves the choice for future sessions."
       (insert name))
     (message "Denote directory: %s" dir)))
 
+(global-set-key (kbd "C-c n w") #'gmj/denote-switch-directory)
+
 (defun gmj/denote-restore-last-directory ()
   "Restore the last used denote directory."
   (when (file-exists-p gmj/denote-last-directory-file)
@@ -51,6 +55,7 @@ Saves the choice for future sessions."
                   (string-trim (buffer-string)))))
       (when (alist-get name gmj/denote-directories nil nil #'string=)
         (gmj/denote-switch-directory name)))))
+
 
 ;; Call on startup (put after denote is loaded)
 ; (gmj/denote-restore-last-directory)

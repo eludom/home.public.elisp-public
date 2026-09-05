@@ -163,4 +163,10 @@ This is a chat session with %(format \"%s\" (or (bound-and-true-p gptel-model) \
 ;; `context-menu-mode'.
 (add-hook 'context-menu-functions #'denote-context-menu)
 
+;; denote-dired keeps prompting me for sort criteria and order.   I want it to prompt me for regex (it is), but alwas to sort most recent first
+
+(setq denote-sort-dired-extra-prompts nil            ; only ask for the regexp
+      denote-sort-dired-default-sort-component 'identifier
+      denote-sort-dired-default-reverse-sort t)      ; newest first
+
 ;; My "poor-mans-denote silo" has been broken out into gmj-denote-silo.el
