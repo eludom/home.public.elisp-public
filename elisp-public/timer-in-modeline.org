@@ -1,0 +1,91 @@
+#+title:      Timer in emacs mode line
+#+date:       [2026-10-11 Sun 07:09]
+#+filetags:   :chat:planning:talk:tech:
+#+identifier: 20261011T070903
+
+This is a chat session with deepseek/deepseek-v4-flash-0731.
+ 
+* Question
+How can I display a timer in the emacs mode line, e.g. when I start my talk I want it to display the minutes and possibly seconds elapsed
+ 
+** answer
+
+You can display a count-up timer by adding a dynamic mode-line element that updates every second. Here's a minimal implementation:
+
+#+begin_src elisp
+(defvar my-talk-start-time nil
+  "When non-nil, the time the talk started (via `current-time').")
+(defvar my-talk-timer nil
+  "Timer object for updating the mode line.")
+
+(defun my-talk-elapsed ()
+  "Return elapsed time string, or nil if no talk is active."
+  (when my-talk-start-time
+    (let* ((elapsed (float-time (time-subtract (current-time)
+                                               my-talk-start-time)))
+           (minutes (floor elapsed 60))
+           (seconds (floor (- elapsed (* minutes 60)))))
+      (format " [talk: %d:%02d]" minutes seconds))))
+
+(defun my-talk-start ()
+  "Start the talk timer and enable mode-line display."
+  (interactive)
+  (setq my-talk-start-time (current-time))
+  (unless my-talk-timer
+    (setq my-talk-timer
+          (run-with-timer 0 1 #'force-mode-line-update)))
+  (message "Talk timer started."))
+
+(defun my-talk-stop ()
+  "Stop the talk timer and remove the mode-line display."
+  (interactive)
+  (setq my-talk-start-time nil)
+  (when my-talk-timer
+    (cancel-timer my-talk-timer)
+    (setq my-talk-timer nil))
+  (force-mode-line-update)
+  (message "Talk timer stopped."))
+#+end_src
+
+#+RESULTS:
+: my-talk-stop
+
+Then add the following to your =mode-line-format= (or append to =mode-line-misc-info=):
+
+#+begin_src elisp
+;; Option 1: directly modify mode-line-format
+(add-to-list 'mode-line-format '(:eval (my-talk-elapsed)) t)
+
+;; Option 2: add to mode-line-misc-info (often cleaner)
+(add-to-list 'mode-line-misc-info '("" (:eval (my-talk-elapsed))))
+#+end_src
+
+#+RESULTS:
+|                     | (:eval (my-talk-elapsed))                                            |
+| which-function-mode | (which-func-mode (which-func--use-mode-line ( which-func-format  ))) |
+| :eval               | (my/denote-modeline-indicator)                                       |
+| global-mode-string  | ( global-mode-string)                                                |
+
+Call =M-x my-talk-start= when you begin speaking, and =M-x my-talk-stop= when done. The mode line will show the elapsed time as =[talk: M:SS]=, updating every second.
+
+*How it works*:
+
+- The =:eval= form in the mode line is re-evaluated whenever the mode line is redrawn.
+- =run-with-timer= calls =force-mode-line-update= every second, causing Emacs to redraw the mode line even if nothing else changes.
+- The timer is only created when a talk is started, so there's no overhead when idle.
+
+You can also bind these commands to keys, e.g.:
+
+#+begin_src elisp
+(global-set-key (kbd "C-c t") #'my-talk-start)
+(global-set-key (kbd "C-c T") #'my-talk-stop)
+#+end_src
+
+#+RESULTS:
+: my-talk-stop
+
+If you prefer a countdown instead of elapsed time, replace the =my-talk-elapsed= function with a version that subtracts from a target duration.
+
+* Follow-up question
+
+** answer
