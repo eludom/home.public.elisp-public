@@ -8,7 +8,7 @@ This is a chat session with deepseek/deepseek-v4-flash-0731.
 * Question
 How can I display a timer in the emacs mode line, e.g. when I start my talk I want it to display the minutes and possibly seconds elapsed
  
-** answer
+** TODO answer
 
 You can display a count-up timer by adding a dynamic mode-line element that updates every second. Here's a minimal implementation:
 
@@ -25,7 +25,7 @@ You can display a count-up timer by adding a dynamic mode-line element that upda
                                                my-talk-start-time)))
            (minutes (floor elapsed 60))
            (seconds (floor (- elapsed (* minutes 60)))))
-      (format " [talk: %d:%02d]" minutes seconds))))
+      (format " [%d:%02d]" minutes seconds))))
 
 (defun my-talk-start ()
   "Start the talk timer and enable mode-line display."
@@ -50,23 +50,16 @@ You can display a count-up timer by adding a dynamic mode-line element that upda
 #+RESULTS:
 : my-talk-stop
 
-Then add the following to your =mode-line-format= (or append to =mode-line-misc-info=):
+Then add eval of my-talk-elapsed to start of default =mode-line-format=
 
 #+begin_src elisp
-;; Option 1: directly modify mode-line-format
-(add-to-list 'mode-line-format '(:eval (my-talk-elapsed)) t)
-
-;; Option 2: add to mode-line-misc-info (often cleaner)
-(add-to-list 'mode-line-misc-info '("" (:eval (my-talk-elapsed))))
+  (message "setting mode-line-format with my-talk-elapsed at front ")
+  (setq-default mode-line-format
+              (cons '(:eval (my-talk-elapsed))
+                    (default-value 'mode-line-format)))
 #+end_src
 
-#+RESULTS:
-|                     | (:eval (my-talk-elapsed))                                            |
-| which-function-mode | (which-func-mode (which-func--use-mode-line ( which-func-format  ))) |
-| :eval               | (my/denote-modeline-indicator)                                       |
-| global-mode-string  | ( global-mode-string)                                                |
-
-Call =M-x my-talk-start= when you begin speaking, and =M-x my-talk-stop= when done. The mode line will show the elapsed time as =[talk: M:SS]=, updating every second.
+Call =M-x my-talk-start= when you begin speaking, and =M-x my-talk-stop= when done. The mode line will show the elapsed time as =[M:SS]=, updating every second.
 
 *How it works*:
 
@@ -86,6 +79,3 @@ You can also bind these commands to keys, e.g.:
 
 If you prefer a countdown instead of elapsed time, replace the =my-talk-elapsed= function with a version that subtracts from a target duration.
 
-* Follow-up question
-
-** answer
