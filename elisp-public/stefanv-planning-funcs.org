@@ -1,6 +1,6 @@
-#+last_saved: 2026-03-14 13:29
+#+last_saved: 2026-10-04 07:23
 * Description
-Time-block planning functions borrowed from:
+Time-block planning functions originally borrowed from:
 
   https://mentat.za.net/blog/2026/01/27/org-mode-time-blocks/?utm_source=atom_feed
 
@@ -33,35 +33,38 @@ I also think about things in terms of the OODA loop:
 Though that's not reflected in this template.
 
 #+begin_src emacs-lisp :exports code
-        (with-eval-after-load 'org-capture
-            (add-to-list 'org-capture-templates
-                         '("d" "Day Planner" entry (file+olp+datetree "~/org/2026.org")
-        		   "** Time Plan for %u
-  ,*** George Offline - Cogita (Think) 
-  ,**** TODO [[file:~/stow/home.private.org/Org/agenda-files/life.org::*Habit - Daily Journaling (paper)][Habit - Daily Journaling (paper)]]  
-  ,**** TODO [[file:~/stow/home.private.org/Org/agenda-files/life.org::*Habit - Reading (paper)][Habit - Reading (paper)]]
-  ,**** TODO Plan + Schedule (emacs)
-  - [ ] Outline todays schedule/priorities (from paper journal, top of head)
-  - [ ] Finish yesterday's review if not done
-  - [ ] Check Online Calendar
-  - [ ] Scan email [[notmuch-search:tag:inbox AND NOT tag:spam AND date:2d..][Inbox (not spam, last 2 days)]] 
-  - [ ] Review Org Agenda for old tasks (max 10 mins)
-  ,*** George Online  - Fac (Do )
-  ,**** TODO Project 1 
-  ,**** TODO Project 2 
-  ,**** TODO Lunch + [[file:~/stow/home.private.org/Org/agenda-files/medical.org::*Habit - Walking - 5000 steps/day][Habit - Walking - 5000 steps/day]] + audio books/blogs <%<%Y-%m-%d %a 11:00-12:30>>
-       
-  ,**** TODO Reading Online (Blogs, RSS, etc.)
-  ,*** George Online  - Dic (Speak)
-  ,**** TODO Writing Online (Blog, etc.)
-  ,**** TODO Administrative Tasks  <%<%Y-%m-%d %a 15:30-16:30>>
-  ,** Notes
-  ,** TODO End of day review  <%<%Y-%m-%d %a 16:45-17:00>>      :observe:
-  - What went well ::
-  - What could improve :: 
-  - Priority for tomorrow :: 
+          (with-eval-after-load 'org-capture
+              (add-to-list 'org-capture-templates
+                           '("d" "Day Planner - Allocate Time Slots To Tasks" entry (file+olp+datetree "~/org/2026.org")
+"** Time Plan for %u
+,*** Cogita (Think) - Mostly Offline
+,**** [[file:agenda-files/life.org::*Daily Journaling (paper)][Daily Journaling (paper)]]
+,**** [[file:agenda-files/life.org::*Reading (paper)][Reading (paper)]]
+,**** TODO Plan + Allocate Time For Tasks
+    - [ ] Finish yesterday's review if not done
+    - [ ] Outline todays schedule/priorities (from paper journal, top of head)
+    - [ ] Check Calendar
+    - [ ] Scan email [[notmuch-search:tag:inbox AND NOT tag:spam AND date:2d..][Inbox (not spam, last 2 days)]] 
+    - [ ] Review Org Agenda for old tasks (max 10 mins), Schedule
+,*** Fac (Do ) - Actions Requiring High Focus
+,**** TODO Thing 1
+,**** TODO Thing 2
+,*** BREAK
+    - [ ] LUNCH
+    - [ ] [[file:~/stow/home.private.org/Org/agenda-files/medical.org::*Walking - 5000 steps/day][Walking - 5000 steps/day]]  
+    - [ ] audio books/blogs 
+,*** Fac (Do ) - Actions Requiring Some Focus
+,**** TODO Thing 3
+,**** TODO Thing 4
+,*** Dic (Speak) - Writing, Email, Blogging, etc.
+,*** Administrative Tasks - Low foucs, high annoyance.
+,** Notes
+,** TODO End of day review
+    - What went well ::
+    - What could improve :: 
+    - Priority for tomorrow :: 
 
-    ")))
+      ")))
   #+end_src 
 
 
@@ -86,7 +89,7 @@ Though that's not reflected in this template.
   (let ((plan-file (expand-file-name (expand-file-name stefanv/org-plan-file))))
     ;; Create file if it doesn't exist
     (unless (file-exists-p plan-file)
-      (with-temp-buffer
+      (with-temp-buffer-buffer
         (write-file plan-file)))
     ;; Switch to the file
     (find-file plan-file)
