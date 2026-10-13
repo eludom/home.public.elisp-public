@@ -30,9 +30,13 @@
   "Talk timer with warnings for presentations."
   :group 'tools)
 
+;; Sample timing setting for a 20 minute demo talk 
 (defcustom talk-tools-warnings
-  '((5 . "Your demo is half done.")
-    (10 . "Your demo is 5 minutes from being done."))
+  '((5 . "Move on from intro.")
+    (10 . "Demo half done.")
+    (15 . "Finish up demo.")
+    (18 . "Two minute warning.")
+    (20 . "Finis. Questions?"))
   "Alist of (MINUTES . MESSAGE) warnings.
 When the elapsed time reaches MINUTES, MESSAGE is displayed."
   :type '(alist :key-type number :value-type string)
