@@ -15,6 +15,10 @@
 
 ;; A simple presentation timer.
 ;;
+;; Note: For the best experience during presentations, consider installing the
+;; `posframe` package (for visual popup warnings) and the `keycast` package
+;; (for displaying keys pressed in the tab bar).
+;;
 ;; Enable `talk-tools-mode' to get the keybindings:
 ;;   C-c t  `talk-tools-start'
 ;;   C-c T  `talk-tools-stop'
@@ -52,8 +56,9 @@ When the elapsed time reaches MINUTES, MESSAGE is displayed."
   :type 'string
   :group 'talk-tools)
 
-;; Try to load posframe if available; this also makes `fboundp' work.
+;; Try to load optional packages if available.
 (require 'posframe nil t)
+(require 'keycast nil t)
 
 (defvar talk-tools--start-time nil
   "Float time when the timer was started, or nil.")
@@ -70,12 +75,17 @@ When the elapsed time reaches MINUTES, MESSAGE is displayed."
 (defvar talk-tools--saved-menu-bar-mode nil
   "Saved state of `menu-bar-mode' prior to enabling `talk-tools-mode'.")
 
+(defvar talk-tools--saved-keycast-tab-bar-mode nil
+  "Saved state of `keycast-tab-bar-mode' prior to enabling `talk-tools-mode'.")
+
 (defvar talk-tools-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c t") #'talk-tools-start)
     (define-key map (kbd "C-c T") #'talk-tools-stop)
     map)
   "Keymap for `talk-tools-mode'.")
+
+(declare-function keycast-tab-bar-mode "keycast")
 
 ;;;###autoload
 (define-minor-mode talk-tools-mode
@@ -90,14 +100,18 @@ The timer display is added near the beginning of the mode line.
   (if talk-tools-mode
       (progn
         (setq talk-tools--saved-tool-bar-mode (bound-and-true-p tool-bar-mode)
-              talk-tools--saved-menu-bar-mode (bound-and-true-p menu-bar-mode))
+              talk-tools--saved-menu-bar-mode (bound-and-true-p menu-bar-mode)
+              talk-tools--saved-keycast-tab-bar-mode (bound-and-true-p keycast-tab-bar-mode))
         (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
         (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+        (when (fboundp 'keycast-tab-bar-mode) (keycast-tab-bar-mode 1))
         (talk-tools--add-mode-line-element))
     (when (fboundp 'tool-bar-mode)
       (tool-bar-mode (if talk-tools--saved-tool-bar-mode 1 -1)))
     (when (fboundp 'menu-bar-mode)
       (menu-bar-mode (if talk-tools--saved-menu-bar-mode 1 -1)))
+    (when (fboundp 'keycast-tab-bar-mode)
+      (keycast-tab-bar-mode (if talk-tools--saved-keycast-tab-bar-mode 1 -1)))
     (talk-tools--remove-mode-line-element)))
 
 ;; Mode line element for the timer.
