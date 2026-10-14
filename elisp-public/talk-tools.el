@@ -64,6 +64,12 @@ When the elapsed time reaches MINUTES, MESSAGE is displayed."
 (defvar talk-tools--warnings-issued nil
   "List of warning times (in seconds) already shown.")
 
+(defvar talk-tools--saved-tool-bar-mode nil
+  "Saved state of `tool-bar-mode' prior to enabling `talk-tools-mode'.")
+
+(defvar talk-tools--saved-menu-bar-mode nil
+  "Saved state of `menu-bar-mode' prior to enabling `talk-tools-mode'.")
+
 (defvar talk-tools-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c t") #'talk-tools-start)
@@ -82,7 +88,16 @@ The timer display is added near the beginning of the mode line.
   :keymap talk-tools-mode-map
   :global t
   (if talk-tools-mode
-      (talk-tools--add-mode-line-element)
+      (progn
+        (setq talk-tools--saved-tool-bar-mode (bound-and-true-p tool-bar-mode)
+              talk-tools--saved-menu-bar-mode (bound-and-true-p menu-bar-mode))
+        (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+        (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+        (talk-tools--add-mode-line-element))
+    (when (fboundp 'tool-bar-mode)
+      (tool-bar-mode (if talk-tools--saved-tool-bar-mode 1 -1)))
+    (when (fboundp 'menu-bar-mode)
+      (menu-bar-mode (if talk-tools--saved-menu-bar-mode 1 -1)))
     (talk-tools--remove-mode-line-element)))
 
 ;; Mode line element for the timer.
