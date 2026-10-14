@@ -183,4 +183,3 @@ The timer display is added near the beginning of the mode line.
 (provide 'talk-tools)
 
 ;;; talk-tools.el ends here
-```

@@ -1,7 +1,0 @@
-The elisp-public directory here contains chucks of elisp that I've
-written or borrowed that are "public", i.e. can be shared
-via git and may be of general interest.
-
-This directory will by linked as ~/elisp-pubic by stow
-and the contents of the files (.org or .el) executed
-by my emacs startup process
