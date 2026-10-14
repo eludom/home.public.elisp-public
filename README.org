@@ -1,5 +1,16 @@
 #+TITLE: George Jones's elisp files
-#+DATE: <2026-10-14 16:11:07 Wednesday>
+#+DATE: <2026-10-14 17:07:45 Wednesday>
 
 This directory contains various small elisp things I've written or borrowed.
+ It is set up as a [[https://www.gnu.org/software/stow/][stow]] repo (=sudo atp install stow=), so
+
+   #+begin_example
+   mkdir ~/stow
+   cd stow
+   git clone [THIS-REPO]
+   stow home.public.elisp-public
+   #+end_example
+
+and (baring conflicts), you will wind up with everything here
+(./elisp-public ) symlinked into $HOME
 
