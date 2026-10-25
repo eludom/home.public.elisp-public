@@ -28,7 +28,7 @@ Basic denote journal config, directory, tags, etc.
 #+begin_src elisp :results none
 (with-eval-after-load 'org-capture
        (add-to-list 'org-capture-templates
-                    '("j" "Journal" entry
+                    '("N" "Denote Journal Entry id" entry
                       (file denote-journal-path-to-new-or-existing-entry)
                       "* %U %?\n%i\n%a"
                       :kill-buffer t
