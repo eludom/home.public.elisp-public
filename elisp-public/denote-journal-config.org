@@ -1,0 +1,63 @@
+My denote setup
+ 
+* Basic denote journal setup
+
+Basic denote journal config, directory, tags, etc.
+
+#+begin_src elisp :results none
+(use-package denote-journal
+  :ensure t
+  ;; Bind those to some key for your convenience.
+  :commands ( denote-journal-new-entry
+              denote-journal-new-or-existing-entry
+              denote-journal-link-or-create-entry )
+  :hook (calendar-mode . denote-journal-calendar-mode)
+  :config
+  ;; Use the "journal" subdirectory of the `denote-directory'.  Set this
+  ;; to nil to use the `denote-directory' instead.
+  (setq denote-journal-directory
+        (expand-file-name "journal" denote-directory))
+  ;; Default keyword for new journal entries. It can also be a list of
+  ;; strings.
+  (setq denote-journal-keyword "journal")
+  ;; Read the doc string of `denote-journal-title-format'.
+  (setq denote-journal-title-format 'day-date-month-year))
+#+end_src
+
+* Custom Capture Template
+
+Custom capture template for journal entries
+
+#+begin_src elisp :results none
+(with-eval-after-load 'org-capture
+  (add-to-list 'org-capture-templates
+               '("N" "deNote journal" entry
+                 (file denote-journal-path-to-new-or-existing-entry)
+                 "* %U %?\n%i\n%a"
+                 :kill-buffer t
+                 :empty-lines 1)))
+#+end_src
+
+** Custom org agenda for journal entries
+
+TODO hook this in as a custom agenda keywords like my daily entry
+
+#+begin_src elisp :results none
+(defun my/denote-journal-agenda ()
+  "Show Org Agenda for journal files without changing `org-agenda-files'.
+
+This function temporarily binds `org-agenda-files' to all `.org' files
+under the Denote journal directory (default: `~/notes/journal/').
+It then runs `org-tags-view' with a case-insensitive tag match for
+\"journal\" (matching both `journal' and `Journal' tags). The result
+is an Org Agenda buffer listing all matching headings.
+
+Assumptions:
+- Your journal directory is `~/notes/journal/'. Adjust the path if needed.
+- All journal files are `.org' files in that directory (recursively).
+- Headings may use `:journal:' or `:Journal:' tags."
+  (interactive)
+  (let ((org-agenda-files
+         (directory-files-recursively "~/notes/journal/" "\\.org$")))
+    (org-tags-view nil "{[Jj]ournal}")))
+#+end_src
