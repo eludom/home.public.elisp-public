@@ -32,6 +32,10 @@ I also think about things in terms of the OODA loop:
 
 Though that's not reflected in this template.
 
+#+begin_src elisp :results none
+  ;;; -*- lexical-binding: t; -*-
+#+end_src
+
 #+begin_src emacs-lisp :exports code
           (with-eval-after-load 'org-capture
               (add-to-list 'org-capture-templates

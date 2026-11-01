@@ -1,5 +1,9 @@
 My denote setup
- 
+
+#+begin_src elisp :results none
+  ;;; -*- lexical-binding: t; -*-
+#+end_src
+
 * Basic denote journal setup
 
 Basic denote journal config, directory, tags, etc.

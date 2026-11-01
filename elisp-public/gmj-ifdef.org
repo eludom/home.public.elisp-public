@@ -1,3 +1,9 @@
+* Lexical binding, it's all the rage now. 
+
+#+begin_src elisp :results none
+  ;;; -*- lexical-binding: t; -*-
+#+end_src
+
 * CAVEAT
   This is probably obsolete for two reasons:
 
