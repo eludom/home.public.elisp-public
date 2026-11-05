@@ -1,3 +1,5 @@
+;; NOTE I'm think this functionality is in MELPA denote-solo now
+
 ;; -*- lexical-binding: t; -*-
 ;;,
 ;; This is my "poor mans denote silo".
