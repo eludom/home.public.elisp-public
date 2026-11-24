@@ -1,0 +1,61 @@
+#+begin_src elisp
+(require 'org-id)
+
+(defun my/refile-diary-task ()
+  "Copy-refile the current diary TODO to a project file.
+
+The copy in the project file keeps its TODO state and schedule.
+The original diary entry is switched to BACKLOG, gets a link to the
+copy stored in the BACKLOG-TO property, and loses any
+SCHEDULED/DEADLINE stamps.
+
+Works from both `org-mode' and `org-agenda-mode' buffers."
+  (interactive)
+  (if (derived-mode-p 'org-agenda-mode)
+      ;; Re-invoke ourselves with point at the originating entry, without
+      ;; switching the window away from the agenda.
+      (org-agenda-with-point-at-orig-entry nil (my/refile-diary-task))
+    (unless (derived-mode-p 'org-mode)
+      (user-error "Not in an Org buffer"))
+    (org-back-to-heading t)
+    (let* ((origin (point-marker))
+           (captured nil)
+           (hook (lambda () (setq captured (point-marker)))))
+      (unwind-protect
+          (progn
+            (add-hook 'org-after-refile-insert-hook hook)
+            (org-refile-copy))
+        (remove-hook 'org-after-refile-insert-hook hook))
+      (unless captured (user-error "Refile aborted"))
+
+      ;; Build a stable link to the new copy (preferring an ID)
+      (let (link title)
+        (with-current-buffer (marker-buffer captured)
+          (goto-char captured)
+          (org-back-to-heading t)
+          (setq title (org-get-heading t t t t))
+          (let ((id (org-id-get-create)))
+            (setq link (format "[[id:%s][%s]]" id title))))
+
+        ;; Turn the diary entry into a BACKLOG pointer
+        (with-current-buffer (marker-buffer origin)
+          (goto-char origin)
+          (org-back-to-heading t)
+          (org-todo "BACKLOG")
+          (when (org-entry-get nil "SCHEDULED") (org-schedule '(4)))
+          (when (org-entry-get nil "DEADLINE")  (org-deadline '(4)))
+          (org-end-of-meta-data t)
+          (unless (bolp) (insert "\n"))
+          (org-set-property "BACKLOG-TO" link))))))
+
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c C-x C-r") #'my/refile-diary-task))
+
+(with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "C-c C-x C-r") #'my/refile-diary-task))
+#+end_src
+
+#+RESULTS:
+: my/refile-diary-task
+
+
